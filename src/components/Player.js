@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay, faPause, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+
+import { playAudio } from '../util';
 
 const Player = ({
   audioRef,
@@ -47,9 +48,12 @@ const Player = ({
       const newIndex = currentIndex !== 0 ? currentIndex - 1 : songs.length - 1;
       setCurrentSong(songs[newIndex]);
     }
+
+    playAudio(isPlaying, audioRef);
   };
 
-  const getTime = (time) => (time ? `${Math.floor(time / 60)}:${('0' + Math.floor(time % 60)).slice(-2)}` : '');
+  const getTime = (time) =>
+    time || time === 0 ? `${Math.floor(time / 60)}:${('0' + Math.floor(time % 60)).slice(-2)}` : '0:00';
 
   return (
     <div className="player">
